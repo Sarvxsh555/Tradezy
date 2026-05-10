@@ -1,12 +1,13 @@
 import React from "react";
+import { Link } from "react-router-dom";
 
 function Navbar() {
   return (
       <nav class="navbar navbar-expand-lg border-bottom " style={{backgroundColor:"#FFF"}}>
         <div class="container p-2">
-          <a class="navbar-brand" href="#navbar">
+          <Link class="navbar-brand" to="/">
             <img style={{width:"25%"}} src="media/images/logo.svg" alt="Logo.svg"></img>
-          </a>
+          </Link>
           <button
             class="navbar-toggler"
             type="button"
@@ -23,34 +24,34 @@ function Navbar() {
             <form class="d-flex" role="search">
               <ul class="navbar-nav me-auto mb-2 mb-lg-0">
               <li class="nav-item">
-                <a class="nav-link active" aria-current="page" href="#">
+                <Link class="nav-link active" aria-current="page" to="/signup">
                   Signup
-                </a>
+                </Link>
               </li>
               <li class="nav-item">
-                <a class="nav-link active" href="#">
+                <Link class="nav-link active" to="/about">
                   About
-                </a>
+                </Link>
               </li>
               <li class="nav-item">
-                <a class="nav-link active" href="#">
+                <Link class="nav-link active" to="/product">
                   Product
-                </a>
+                </Link>
               </li>
               <li class="nav-item">
-                <a class="nav-link active" href="#">
+                <Link class="nav-link active" to="/pricing">
                   Pricing
-                </a>
+                </Link>
               </li>
               <li class="nav-item">
-                <a class="nav-link active" href="#">
+                <Link class="nav-link active" to="/support">
                   Support
-                </a>
+                </Link>
               </li>
               <li class="nav-item">
-                <a class="nav-link active" href="#">
+                <Link class="nav-link active" to="/">
                   <i class="fa-solid fa-burger"></i>
-                </a>
+                </Link>
               </li>
             </ul>
             </form>
