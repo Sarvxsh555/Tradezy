@@ -15,3 +15,70 @@ code {
 .nav-link{
   margin-left: 40px;
 }
+
+#supportHero{
+  background-color: #387ed1;
+  color: #fff;
+}
+
+#supportHero .support-title{
+  max-width: 650px;
+  font-size: 2rem;
+  line-height: 1.35;
+  font-weight: 500;
+}
+
+#supportHero .support-link,
+#supportHero .support-quick-links a,
+#supportHero .support-featured a{
+  color: #fff;
+  text-decoration: underline;
+  text-underline-offset: 2px;
+}
+
+#supportHero .support-link{
+  font-size: 1.05rem;
+  font-weight: 500;
+}
+
+#supportHero .support-search{
+  position: relative;
+  max-width: 300px;
+}
+
+#supportHero .support-search input{
+  border: 0;
+  border-radius: 10px;
+  width: 100%;
+  padding: 8px 38px 8px 12px;
+  min-height: 40px;
+  box-shadow: none;
+}
+
+#supportHero .support-search i{
+  position: absolute;
+  top: 50%;
+  right: 12px;
+  color: #777;
+  transform: translateY(-50%);
+}
+
+#supportHero .support-quick-links{
+  display: flex;
+  flex-wrap: wrap;
+  gap: 8px 14px;
+}
+
+#supportHero .support-featured{
+  line-height: 1.8;
+}
+
+@media (max-width: 768px){
+  #supportHero .support-title{
+    font-size: 1.55rem;
+  }
+
+  #supportHero .support-search{
+    max-width: 100%;
+  }
+}
