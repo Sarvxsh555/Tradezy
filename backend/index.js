@@ -1,13 +1,19 @@
 require("dotenv").config();
 const express = require("express");
 const mongoose = require("mongoose");
+const bodyParser = require("body-parser");
+const cors = require("cors");
 
 const PORT = process.env.PORT || 3002;
 const url = process.env.MONGO_URL;
 const { HoldingsModel } = require("./model/HoldingsModel");
 const { PositionsModel } = require("./model/PositionsModel");
+const { OrdersModel } = require("./model/OrdersModel");
 
 const app = express();
+
+app.use(cors());
+app.use(bodyParser.json());
 
 // app.get("/addHoldings", async (req, res) => {
 //   let tempHoldings = [
@@ -177,6 +183,32 @@ const app = express();
 //   });
 //   res.send("Doneee!!!");
 // });
+app.get("/allHoldings",async(req,res)=>{
+    let allHoldings = await HoldingsModel.find({});
+    res.json(allHoldings);
+});
+app.get("/allPositions",async(req,res)=>{
+    let allPositions = await PositionsModel.find({});
+    res.json(allPositions);
+});
+
+app.post("/newOrder", async (req, res) => {
+  try {
+    const { name, qty, price, mode } = req.body;
+
+    const newOrder = new OrdersModel({
+      name,
+      qty,
+      price,
+      mode,
+    });
+
+    const savedOrder = await newOrder.save();
+    res.status(201).json(savedOrder);
+  } catch (error) {
+    res.status(500).json({ message: "Failed to create order" });
+  }
+});
 
 async function startServer() {
   try {

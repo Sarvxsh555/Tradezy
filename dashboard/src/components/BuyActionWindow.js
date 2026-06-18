@@ -1,51 +1,74 @@
 import React, { useContext, useState } from "react";
+import { Link } from "react-router-dom";
+
+import axios from "axios";
 
 import GeneralContext from "./GeneralContext";
 
-const BuyActionWindow = ({ uid }) => {
+import "./BuyActionWindow.css";
+
+const BuyActionWindow = ({ uid, stockPrice }) => {
   const { closeBuyWindow } = useContext(GeneralContext);
-  const [quantity, setQuantity] = useState(1);
-  const [price, setPrice] = useState(0);
+  const [stockQuantity, setStockQuantity] = useState(1);
+  const orderValue = stockQuantity * stockPrice;
+
+  const handleQuantityChange = (e) => {
+    setStockQuantity(Number(e.target.value));
+  };
+
+  const handleBuyClick = () => {
+    axios.post("http://localhost:3002/newOrder", {
+      name: uid,
+      qty: stockQuantity,
+      price: orderValue,
+      mode: "BUY",
+    });
+
+    closeBuyWindow();
+  };
+
+  const handleCancelClick = () => {
+    closeBuyWindow();
+  };
 
   return (
-    <div className="buy-window-container">
-      <div className="buy-window">
-        <div className="buy-window-header">
-          <h3>Buy {uid}</h3>
-          <button type="button" onClick={closeBuyWindow} aria-label="Close">
-            x
-          </button>
-        </div>
-
-        <div className="buy-window-fields">
-          <label>
-            Qty.
+    <div className="container" id="buy-window" draggable="true">
+      <div className="regular-order">
+        <div className="inputs">
+          <fieldset>
+            <legend>Qty.</legend>
             <input
               type="number"
+              name="qty"
+              id="qty"
               min="1"
-              value={quantity}
-              onChange={(e) => setQuantity(e.target.value)}
+              onChange={handleQuantityChange}
+              value={stockQuantity}
             />
-          </label>
-
-          <label>
-            Price
+          </fieldset>
+          <fieldset>
+            <legend>Price</legend>
             <input
               type="number"
-              min="0"
-              value={price}
-              onChange={(e) => setPrice(e.target.value)}
+              name="price"
+              id="price"
+              step="0.05"
+              value={orderValue.toFixed(2)}
+              disabled
             />
-          </label>
+          </fieldset>
         </div>
+      </div>
 
-        <div className="buy-window-actions">
-          <button type="button" className="buy-window-primary">
+      <div className="buttons">
+        <span>Margin required &#8377;{orderValue.toFixed(2)}</span>
+        <div>
+          <Link className="btn btn-blue" onClick={handleBuyClick}>
             Buy
-          </button>
-          <button type="button" onClick={closeBuyWindow}>
+          </Link>
+          <Link to="" className="btn btn-grey" onClick={handleCancelClick}>
             Cancel
-          </button>
+          </Link>
         </div>
       </div>
     </div>

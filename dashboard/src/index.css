@@ -841,3 +841,94 @@ hr {
 .action:hover {
   background-color: rgb(212, 212, 212);
 }
+
+.buy-window-container {
+  width: 560px;
+  min-height: 220px;
+  position: absolute;
+  left: 36%;
+  bottom: 4%;
+  z-index: 10;
+  background-color: #fff;
+  box-sizing: border-box;
+  box-shadow: 0 0 8px 2px rgb(238, 238, 238);
+  padding: 24px 28px;
+}
+
+.buy-window {
+  width: 100%;
+}
+
+.buy-window-fields {
+  display: flex;
+  align-items: center;
+  gap: 12px;
+  margin-bottom: 34px;
+}
+
+.buy-window-fields label {
+  flex: 1;
+  position: relative;
+  color: rgb(63, 63, 63);
+  font-size: 0.8rem;
+  font-weight: 400;
+}
+
+.buy-window-fields input {
+  width: 100%;
+  height: 64px;
+  margin-top: 6px;
+  padding: 20px 14px 10px;
+  border: 1px solid rgb(224, 224, 224);
+  border-radius: 2px;
+  box-sizing: border-box;
+  color: rgb(65, 65, 65);
+  font-size: 1rem;
+}
+
+.buy-window-fields input:focus {
+  outline: none;
+  border-color: #4184f3;
+}
+
+.buy-window-actions {
+  display: flex;
+  align-items: center;
+  justify-content: flex-end;
+  gap: 10px;
+}
+
+.buy-window-actions span {
+  margin-right: auto;
+  color: rgb(62, 62, 62);
+  font-size: 0.85rem;
+  font-weight: 400;
+}
+
+.buy-window-actions button {
+  min-width: 86px;
+  height: 42px;
+  border: none;
+  border-radius: 2px;
+  font-size: 1rem;
+  font-weight: 400;
+  cursor: pointer;
+}
+
+.buy-window-primary {
+  background-color: #4184f3;
+  color: #fff;
+}
+
+.buy-window-primary:hover {
+  background-color: #2f74df;
+}
+
+.buy-window-secondary {
+  background-color: rgb(218, 218, 218);
+  color: rgb(83, 83, 83);
+}
+
+.buy-window-secondary:hover {
+  background-color: rgb(203, 203, 203);
+}
