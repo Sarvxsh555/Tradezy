@@ -1,14 +1,17 @@
 require("dotenv").config();
+
 const express = require("express");
 const mongoose = require("mongoose");
 const bodyParser = require("body-parser");
 const cors = require("cors");
 
-const PORT = process.env.PORT || 3002;
-const url = process.env.MONGO_URL;
 const { HoldingsModel } = require("./model/HoldingsModel");
+
 const { PositionsModel } = require("./model/PositionsModel");
 const { OrdersModel } = require("./model/OrdersModel");
+
+const PORT = process.env.PORT || 3002;
+const uri = process.env.MONGO_URL;
 
 const app = express();
 
@@ -134,17 +137,16 @@ app.use(bodyParser.json());
 //       qty: item.qty,
 //       avg: item.avg,
 //       price: item.price,
-//       net: item.net,
+//       net: item.day,
 //       day: item.day,
 //     });
+
 //     newHolding.save();
 //   });
-//   res.send("Doneee!!!");
+//   res.send("Done!");
 // });
 
-
-
-// app.get("/addPostions", async (req, res) => {
+// app.get("/addPositions", async (req, res) => {
 //   let tempPositions = [
 //     {
 //       product: "CNC",
@@ -179,49 +181,37 @@ app.use(bodyParser.json());
 //       day: item.day,
 //       isLoss: item.isLoss,
 //     });
+
 //     newPosition.save();
 //   });
-//   res.send("Doneee!!!");
+//   res.send("Done!");
 // });
-app.get("/allHoldings",async(req,res)=>{
-    let allHoldings = await HoldingsModel.find({});
-    res.json(allHoldings);
+
+app.get("/allHoldings", async (req, res) => {
+  let allHoldings = await HoldingsModel.find({});
+  res.json(allHoldings);
 });
-app.get("/allPositions",async(req,res)=>{
-    let allPositions = await PositionsModel.find({});
-    res.json(allPositions);
+
+app.get("/allPositions", async (req, res) => {
+  let allPositions = await PositionsModel.find({});
+  res.json(allPositions);
 });
 
 app.post("/newOrder", async (req, res) => {
-  try {
-    const { name, qty, price, mode } = req.body;
+  let newOrder = new OrdersModel({
+    name: req.body.name,
+    qty: req.body.qty,
+    price: req.body.price,
+    mode: req.body.mode,
+  });
 
-    const newOrder = new OrdersModel({
-      name,
-      qty,
-      price,
-      mode,
-    });
+  newOrder.save();
 
-    const savedOrder = await newOrder.save();
-    res.status(201).json(savedOrder);
-  } catch (error) {
-    res.status(500).json({ message: "Failed to create order" });
-  }
+  res.send("Order saved!");
 });
 
-async function startServer() {
-  try {
-    await mongoose.connect(url);
-    console.log("DB connected");
-
-    app.listen(PORT, () => {
-      console.log(`APP is listening on port ${PORT}`);
-    });
-  } catch (error) {
-    console.error("Failed to connect to MongoDB:", error.message);
-    process.exit(1);
-  }
-}
-
-startServer();
+app.listen(PORT, () => {
+  console.log("App started!");
+  mongoose.connect(uri);
+  console.log("DB started!");
+});
